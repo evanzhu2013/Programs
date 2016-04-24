@@ -1,0 +1,15 @@
+installed.packages("MatchIt")
+library(MatchIt)
+installed.packages("foreign")
+library(foreign)
+mydata=read.spss("/Users/Evan/Desktop/psm.xls")
+names(mydata)
+mydata=data.frame(mydata)
+attach(mydata)
+m.out = matchit(events ~ sex + age + HP + HL + dia + a6 + a7 + a8 + a9 + PCI + CABG + a12 + a13 + a14 + a15 + a16 + a17 + a18 + a19 + a20 + a21 + a22 + a23,data = mydata, method = "nearest",ratio = 4)
+summary(m.out)
+
+plot(m.out, type = "jitter")
+#plot(m.out, type = "hist")
+m.data1 <- match.data(m.out)
+
