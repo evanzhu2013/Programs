@@ -78,14 +78,9 @@ Affairs$ynaffair <- ifelse(Affairs$affairs>0,1,0) # 生成是否’出轨‘的�
 Affairs$ynaffair <- factor(Affairs$ynaffair,levels=c(0,1),labels=c("No","Yes")) # 转为因子并加标签
 
 fit.full <- glm(ynaffair~gender+age+yearsmarried+children+education+occupation+rating+religiousness,data=Affairs,family=binomial())
-summary(fit.full) 
+summary(fit.full)
 
 fit.reduced <- glm(ynaffair~age+yearsmarried+rating+religiousness,data=Affairs,family=binomial())
 summary(fit.full)
 
 lroc(fit.reduced,auc.coords=c(0.4,0.15)) #计算ROC并绘制ROC曲线
-
-
-
-
-

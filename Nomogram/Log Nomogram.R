@@ -1,4 +1,4 @@
-setwd("G:/1. 科室文件/26-R 相关计算/log cox")
+# Title: logistic Nomogram
 
 # 加载需要的R包
 library(foreign)
@@ -28,7 +28,7 @@ gc <- mydata
 attach(gc)
 
 # 数据转制
-dd<-datadist(gc) 
+dd<-datadist(gc)
 options(datadist='dd')
 
 logm <- lrm(admit ~ gre + gpa + rank, data = gc)
@@ -43,16 +43,4 @@ plot(nomogram(logm2, fun=abc, funlabel = "发病风险", maxscale=10, lp=F,
               fun.at=c('0.9','0.85','0.80','0.70','0.6','0.5','0.4','0.3','0.1')),
               xfrac=.25)
 
-# 
-
-
-
-
-
-
-
-
-
-
-
-
+#

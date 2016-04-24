@@ -4,11 +4,11 @@
 
 library(foreign) # 读取spss格式数据
 library(survival)
-library(rms) 
+library(rms)
 library(VIM) # 包中aggr()函数，判断数据缺失情况
 
 if (!require("VIM")) {
-  install.packages("VIM", repos="https://cran.rstudio.com/") 
+  install.packages("VIM", repos="https://cran.rstudio.com/")
   library("VIM")
 }
 
@@ -33,7 +33,7 @@ pancer$Gender <- as.factor(ifelse(pancer$sex=='男',"Male","Female"))
 
 pancer$Gendr <- relevel(pancer$Gender,ref='Female')
 
-dd<-datadist(pancer) 
+dd<-datadist(pancer)
 options(datadist='dd') # 转换为绘制列线图格式
 
 coxm <- cph(Surv(time,censor==1)~age+Gender+trt+bui+ch+p+stage,x=T,y=T,data=pancer,surv=T) # 建立Cox回归方程
@@ -51,25 +51,10 @@ plot(nomogram(coxm,fun=list(surv1,surv2,surv3),lp= F,funlabel=c('3-Month Surviva
 
 # 列线图绘制常见问题
 
-# 1. 如何筛选变量？ 
+# 1. 如何筛选变量？
 # 与多变量统计分析变量筛选方法一样。列线图绘制纳入的变量即为coxm方程中的变量。
 
 # 2. 如何更改图中变量名以及的变量值的名称，比如“sex”的"男"和"女"。
 # 列线图中出现的名称，即变量名和变量值名称，修改变量名和变量值名即可修改列线图中的名称。
 
 # 3. 如何更改多分类变量的参考组
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
