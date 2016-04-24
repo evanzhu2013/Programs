@@ -21,7 +21,6 @@ logm <- glm(admit ~ gre + gpa + rank, data = gc, family="binomial")
 logm=step(logm)
 a=predict.glm(logm)
 
-
 mydata <- read.csv("http://www.ats.ucla.edu/stat/data/binary.csv")
 gc <- mydata
 
