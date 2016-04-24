@@ -10,5 +10,3 @@ hfmd$time<-1:length(hfmd[,1])
 
 fit1<-gam(cases~s(time,k=6)+s(ave_temp,k=5)+DOW+holiday,family=poisson,method="REML",data=hfmd)
 plot(fit1)
-
-

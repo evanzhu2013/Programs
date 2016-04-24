@@ -41,10 +41,3 @@ prp(treeB)
 groupA$class <- as.factor(ifelse(groupA$IL8 < 8.7,'正常人组','非正常组'))
 
 groupB$class <- as.factor(ifelse(groupB$IL8 < 64,ifelse(groupB$IL8 < 5.9,'长期接触者','非正常组'),'长期接触者'))
-
-
-
-
-
-
-

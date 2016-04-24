@@ -9,7 +9,7 @@ x1<-cumsum(x0) #一次累加生成序列1-AG0序列
 b<-numeric(length(x0)-1)
 n<-length(x0)-1
 for(i in 1:n){ #生成x1的紧邻均值生成序列
-b[i]<--(x1[i]+x1[i+1])/2 
+b[i]<--(x1[i]+x1[i+1])/2
 b} #得序列b，即为x1的紧邻均值生成序列
 D<-numeric(length(x0)-1)
 D[]<-1
@@ -26,15 +26,15 @@ cat("GM(1,1)参数估计值：",'\n',"发展系数-a=",-a,"  ","灰色作用量u
 y<-numeric(length(c(1:t)))
 y[1]<-x1[1]
 for(w in 1:(t-1)){  #将a,u的估计值代入时间响应序列函数计算x1拟合序列y
-y[w+1]<-(x1[1]-u/a)*exp(-a*w)+u/a 
+y[w+1]<-(x1[1]-u/a)*exp(-a*w)+u/a
 }
 cat("x(1)的模拟值：",'\n',y,'\n')
 xy<-numeric(length(y))
 xy[1]<-y[1]
 for(o in 2:t){ #运用后减运算还原得模型输入序列x0预测序列
-xy[o]<-y[o]-y[o-1] 
-} 
-cat("x(0)的模拟值：",'\n',xy,'\n','\n')                       
+xy[o]<-y[o]-y[o-1]
+}
+cat("x(0)的模拟值：",'\n',xy,'\n','\n')
 
 #计算残差e
 e<-numeric(length(x0))
@@ -57,7 +57,7 @@ avge<-mean(abs(e));esum<-sum((abs(e)-avge)^2);evar=esum/(length(e)-1);se=sqrt(ev
 avgx0<-mean(x0);x0sum<-sum((x0-avgx0)^2);x0var=x0sum/(length(x0));sx=sqrt(x0var)  #计算原序列x0的方差sx
 cv<-se/sx  #得验差比值
 cat("后验差比值检验:",'\n',"C值=",cv,'\n')#对后验差比值进行检验，与一般标准进行比较判断预测结果好坏。
-if(cv < 0.35){     
+if(cv < 0.35){
 cat("C值<0.35, GM(1,1)预测精度等级为：好",'\n','\n')
 }else{
 if(cv<0.5){
@@ -89,6 +89,3 @@ x0
 plot(case,col='blue',type='b',pch=16,xlab='时间序列',ylab='值')
 points(x0,col='red',type='b',pch=4)
 legend('topleft',c('预测结果','原始数据'),pch=c(16,4),lty=c('b','l'),col=c('blue','red'))
-
-
-
