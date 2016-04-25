@@ -42,26 +42,7 @@ boot.ci(results,type='bca') # boot函数中有5种计算统计量置信区间的
 1.  初始的样本需要多大？
 2.  应该重复多少次？
 
-对于第一个问题，我们无法给出简单的回答。
+对于第一个问题，我们无法给出简单的回答。有些人认为只要样本能够较好地代表总体，初始样本大小为 20～30 即可得到足够好的结果。从感兴趣的总体随机抽样的方法可信度最高，它能够保证初始样本的代表性。对于第二个问题，我发现1000次重复在大部分情况下都可满足要求。
 
 
-### 技术难点在于自定义统计量的编写，再给出一个本人利用Bootstrap计算遗传度的代码
-
-gene <- read.table('/Users/Evan/DataScience/Programs/Bootstrap/data.txt',header = T)
-
-OR_fun <- function(data,indices){
-  d <- data[indices,]
-  A_A <-  nrow(subset(d, group==1 & genotype==2))
-  C_A <-  nrow(subset(d, group==0 & genotype==2))
-  A_T <-  nrow(subset(d, group==1 & genotype==3))
-  C_T <-  nrow(subset(d, group==0 & genotype==3))
-  B <-  nrow(subset(d, group==1 & genotype==1))
-  D <-  nrow(subset(d, group==0 & genotype==1))
-  lambda <- log(A_A*D/(B*C_A))/log(A_T*D/(B*C_T))
-  return(lambda)
-}
-
-library(boot)
-set.seed(20160424)
-results <- boot(statistic = OR_fun,R=10000,data=gene)
-boot.ci(results,type='bca')
+### 技术难点在于自定义统计量的编写，在后续的文章中将会展开讲诉如何编写函数。
