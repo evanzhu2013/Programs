@@ -1,5 +1,6 @@
 
 library(shiny)
+library(ggplot2)
 par(mar = c(5,6,2,1),family = "STXihei",mgp=c(2.5,1,0),xaxs='r')
 opar=par(no.readonly=T)
 options(digits=3)
@@ -8,11 +9,17 @@ shinyServer(function(input,output){
 
     output$hist <- renderPlot({
     inFile <- input$uploadFile
+
     if (is.null(inFile))
          return(NULL)
     userData <- read.csv(inFile$datapath,header= T)
-    hist <- hist(rnorm(userData[,2]),main=input$title,xlab=input$xlab,ylab=input$ylab)
-    print(hist)
+
+    switch(input$journal,
+      'BMJ' = hist(userData[,2],main=input$title,xlab=input$xlab,ylab=input$ylab),
+      'CMJ' =
+          # hist(userData[,2],main=input$title,xlab=input$xlab,ylab=input$ylab,col='lightblue'),
+          qplot(userData[,2]),
+      "JAMA" =  hist(userData[,2],main=input$title,xlab=input$xlab,ylab=input$ylab,col='red'))
     })
 
     # output$downloadData <- downloadHandler(

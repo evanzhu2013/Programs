@@ -12,7 +12,7 @@ shinyUI(fluidPage(
       textInput(inputId='title',label='Title',value=""),
       textInput(inputId='xlab',label='X-lab',value=""),
       textInput(inputId='ylab',label='Y-lab',value=""),
-      selectInput('journal','choose Journal',list('BMJ','CMJ',"Jama")),
+      selectInput('journal','choose Journal',list('BMJ','CMJ',"JAMA")),
       submitButton(text = "Produce output")
       # ,downloadButton('downloadData', 'Download')
       ),
