@@ -3,7 +3,7 @@
 # Heritability using Bootstrap
 #
 
-gene <- read.table('/Users/Evan/DataScience/Programs/Bootstrap/data.txt',header = T)
+gene <- read.table('/Users/Evan/DataScience/Programs/Bootstrap/data2.txt',header = T)
 
 OR_fun <- function(data,indices){
   d <- data[indices,]
@@ -19,5 +19,5 @@ OR_fun <- function(data,indices){
 
 library(boot)
 set.seed(20160424)
-results <- boot(statistic = OR_fun,R=10000,data=gene)
+results <- boot(statistic = OR_fun,R=1000,data=gene)
 boot.ci(results,type='bca')

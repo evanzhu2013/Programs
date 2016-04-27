@@ -26,15 +26,15 @@ R语言灵活的自定义函数，为计算自定义的统计量提供了很大�
 
 首先任务是写一个获取R平方值的函数：
 
-rsq <- function(formula,data,indices){
-  d <- data[indices,] #  从原始样本中再抽样，indices指抽取的行
-  fit <- lm(formula,data=d)
+rsq \<- function(formula,data,indices){
+  d \<- data[indices,] #  从原始样本中再抽样，indices指抽取的行
+  fit \<- lm(formula,data=d)
   return(summary(fit)$r.square) # 返回单次抽样的统计量
 }
 
 library(boot)
 set.seed(20160425) # 便于重复试验结果
-results <- boot(data=mtcars,statistic=rsq,R=1000,formula= mpg~wt+disp)
+results \<- boot(data=mtcars,statistic=rsq,R=1000,formula= mpg\~wt+disp)
 
 boot.ci(results,type='bca') # boot函数中有5种计算统计量置信区间的方法,bca（校正百分位数法）较为准确，默认5中方法都给出，但如果计算量比较大的话，建议选择一种方法。具体每种方法的优劣就不展开讲了，可以查阅相关数据。
 
@@ -45,4 +45,10 @@ boot.ci(results,type='bca') # boot函数中有5种计算统计量置信区间的
 对于第一个问题，我们无法给出简单的回答。有些人认为只要样本能够较好地代表总体，初始样本大小为 20～30 即可得到足够好的结果。从感兴趣的总体随机抽样的方法可信度最高，它能够保证初始样本的代表性。对于第二个问题，我发现1000次重复在大部分情况下都可满足要求。
 
 
-### 技术难点在于自定义统计量的编写，在后续的文章中将会展开讲诉如何编写函数。
+** 技术难点在于自定义统计量的编写，在后续的文章中将会展开讲诉如何编写函数。
+
+
+
+参考书目
+
+1. Rober I. Kabacoff. R in Action.
