@@ -13,13 +13,17 @@ shinyServer(function(input,output){
     if (is.null(inFile))
          return(NULL)
     userData <- read.csv(inFile$datapath,header= T)
+    # attach(userData)
+    output$variable <- renderUI({
+    variableList <- unique(as.character(names(userData)))
+    selectInput('variables','Choose variable',variableList)
+  })
 
     switch(input$journal,
-      'BMJ' = hist(userData[,2],main=input$title,xlab=input$xlab,ylab=input$ylab),
+      'BMJ' = hist(userData[input$variable],main=input$title,xlab=input$xlab,ylab=input$ylab),
       'CMJ' =
-          # hist(userData[,2],main=input$title,xlab=input$xlab,ylab=input$ylab,col='lightblue'),
-          qplot(userData[,2]),
-      "JAMA" =  hist(userData[,2],main=input$title,xlab=input$xlab,ylab=input$ylab,col='red'))
+          qplot(userData[input$variable],xlab=input$xlab,ylab=input$ylab,col='red'),
+      "JAMA" =  hist(userData[input$variable],main=input$title,xlab=input$xlab,ylab=input$ylab,col='lightblue'))
     })
 
     # output$downloadData <- downloadHandler(
