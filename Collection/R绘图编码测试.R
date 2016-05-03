@@ -1,0 +1,1 @@
+plot(rnorm(5), main = "测试中文一二三四壹貳參肆", xlab=" 数字",family = "SimSun")
