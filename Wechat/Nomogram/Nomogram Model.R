@@ -1,7 +1,6 @@
 # Cox回归 列线图
 setwd('~/Downloads')
 
-library(foreign)
 library(rms)
 library(dplyr)
 library(survival)
