@@ -1,0 +1,16 @@
+# Rstudio
+
+RStudio non-UTF8 Warning Message
+gnange gnange 2014-07-06 13:30:51
+During startup - Warning messages:
+1: Setting LC_CTYPE failed, using "C"
+2: Setting LC_COLLATE failed, using "C"
+3: Setting LC_TIME failed, using "C"
+4: Setting LC_MESSAGES failed, using "C"
+WARNING: You're using a non-UTF8 locale, therefore only ASCII
+characters will work.
+Please read R for Mac OS X FAQ (see Help) section 9 and adjust your
+system preferences accordingly.
+
+Just type:
+system("defaults write org.R-project.R force.LANG en_US.UTF-8")

@@ -1,0 +1,9 @@
+
+
+
+
+
+data <- data.frame(variable = c('gender','age','height','weight','gene'),or=rnorm(5,1,0.5),se= rnorm(5,0.8,0.5))
+
+
+ggplot(data,aes(x=variable,y=or))+geom_point(size=2)+geom_errorbar(aes(ymin=or-se,ymax=or+se),width=0.2)+coord_flip()+ylab('OR')+xlab('Variable')+theme_bw()
