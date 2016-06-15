@@ -17,7 +17,7 @@ library(readr)
 
 if ('datasets' %in% ls()) datasets <- data.frame()
 
-scraping <- function(address='åŒ—äº¬',startyear= 2014,endyear= 2016,startmonth=1,endmonth=12){
+scraping <- function(address='±±¾©',startyear= 2014,endyear= 2016,startmonth=1,endmonth=12){
         for (j in startyear:endyear){
                 for (i in startmonth:endmonth){
                         url <- paste0('http://www.aqistudy.cn/historydata/daydata.php?city=',address,'&month=',j,'-',str_pad(i,2,side = 'left',pad='0'))
@@ -30,29 +30,4 @@ scraping <- function(address='åŒ—äº¬',startyear= 2014,endyear= 2016,startmonth=1
         write.csv(datasets,file=paste0(address,startyear,'-',endyear,'.csv'),fileEncoding = 'GB2312')
 }
 
-scraping(address='å¹¿å·',endyear=2016)
-
-
-# simpl function
-
-scraping <- function(address='åŒ—äº¬',year=NULL,month=null){
-        month <- str_pad(month,2,side = 'left',pad='0')
-        url <- paste0('http://www.aqistudy.cn/historydata/daydata.php?city=',address,'&month=',year,'-',str_pad(month,2,side = 'left',pad='0'))
-        data <- url %>% read_html() %>% html_nodes('table') %>% .[[1]] %>% html_table() %>% as.data.frame()
-        Sys.sleep(5)
-        return(data)
-}
-
-if ('datasets' %in% ls()) datasets <- data.frame()
-
-datasets <- data.frame()
-
-for (j in 2014:2016){
-        for (i in 1:12){
-                data <- scraping(address='æ·±åœ³',year=j,month=i)
-                datasets <- rbind(datasets,data)
-        }
-        datasets
-}
-
-write.csv(datasets,'~/Desktop/æ·±åœ³.csv',fileEncoding = 'GB2312')
+scraping(address='±±¾©',endyear=2016)
