@@ -67,25 +67,10 @@ if(cv<0.65){
 cat("C值属于[0.5,0.65), GM(1,1)模型预测精度等级为：勉强合格",'\n','\n')
 }else{
 cat("C值>=0.65, GM(1,1)模型预测精度等级为：不合格",'\n','\n')
-}
-}
-}
-
+}}}
 #画出输入序列x0的预测序列及x0的比较图像
 plot(xy,col='blue',type='b',pch=16,xlab='时间序列',ylab='值')
 points(x0,col='red',type='b',pch=4)
-legend('topleft',c('预测结果','原始数据'),pch=c(16,4),lty='l',col=c('blue','red'))
+legend('topright',c('预测结果','原始数据'),pch=c(16,4),lty='l',col=c('blue','red'))
 xy # 返回x0的预测序列
 }
-
-# 导入数据
-library(readxl)
-grey <- read_excel('/Users/Evan/Desktop/Academic/结核研究/End TB/Grey Model/grey model prediction.xlsx')
-
-case <- grey[[3]][9:14]
-x0 <- gm11(case,length(case)+12)
-x0
-
-plot(case,col='blue',type='b',pch=16,xlab='时间序列',ylab='值')
-points(x0,col='red',type='b',pch=4)
-legend('topleft',c('预测结果','原始数据'),pch=c(16,4),lty=c('b','l'),col=c('blue','red'))

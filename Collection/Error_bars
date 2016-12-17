@@ -1,8 +1,4 @@
 
-
-
-
-
 data <- data.frame(variable = c('gender','age','height','weight','gene'),or=rnorm(5,1,0.5),se= rnorm(5,0.8,0.5))
 
 
