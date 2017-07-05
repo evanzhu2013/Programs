@@ -1,0 +1,72 @@
+---
+title: "Simulation Exercise"
+author: "Evan Zhu"
+date: "16/7/24"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+In this project I will investigate the exponential distribution in R and compare it with the Central Limit Theorem. I will investigate the distribution of averages of 40 exponentials with a thousand simulations.
+
+```{r  results='hide',message=F}
+library(dplyr)
+library(ggplot2)
+```
+
+### Simulations
+
+```{r simulations}
+# set random seed
+set.seed(170722)
+lambda =0.2
+simulations <- apply(matrix(rexp(1000*40,rate=lambda),1000),1,mean)
+```
+
+### 1. Show the sample mean and compare it to the theoretical mean of the distribution.
+
+**Figure 1:**
+
+```{r echo=FALSE}
+
+hist(simulations,breaks=30,probability = T,main='Distribution of averages of samples',xlab='Simulation mean')
+lines(density(simulations))
+abline(v=1/lambda, col="red")
+
+# theoretical density of the averages of samples
+num <- seq(min(simulations), max(simulations), length=100)
+density_theory <- dnorm(num, mean=1/lambda, sd=(1/lambda/sqrt(40)))
+lines(num, density_theory, pch=15, col="blue", lty=2)
+
+# add legend
+legend('topright', c("simulation", "theoretical"), lty=c(1,2), col=c("black", "blue"))
+
+```
+
+As shown in the picture, the sample mean is similar to theoretical mean of the distribution. The sample mean is centered at `r mean(simulations)`, close to `r 1/lambda`.
+
+###  2. Show how variable it is and compare it to the theoretical variance of the distribution
+
+```{r results= 'hide'}
+
+var(simulations)
+(1/lambda)^2/40
+
+```
+The standard deviation of simulation is `r sd(simulations)`, and variance of simulation is `r var(simulations)`. The variance of simulations is similar to `r (1/lambda)^2/40`. And displayed in Figure 1, the vairance is close. 
+
+### 3. Show that the distribution is approximately normal
+**Figure 2:**
+```{r}
+
+qqnorm(simulations); qqline(simulations)
+
+```
+
+As shown in Figure 1 and Figure 2, the distribution is approximately normal. 
+
+

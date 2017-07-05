@@ -1,0 +1,71 @@
+---
+title: "Teeth growth data analysis Exercise"
+author: "Evan Zhu"
+date: "16/7/24"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+I'm going to analyze the ToothGrowth data in the R datasets package.
+
+```{r  results='hide',message=F}
+library(ggplot2)
+library(gplots)
+```
+
+### Perform some basic exploratory data analyses
+
+```{r simulations}
+# set random seed
+data(ToothGrowth)
+summary(ToothGrowth)
+aggregate(len~supp+dose,data= ToothGrowth,mean)
+ggplot(ToothGrowth, aes(x=interaction(supp, dose), y=len)) + geom_boxplot()+theme_bw()
+```
+
+### Hypothesis tests to compare tooth growth by supp and dose.
+
+```{r echo=FALSE}
+fit <- aov(len~as.factor(supp)*as.factor(dose),data=ToothGrowth)
+summary(fit)
+```
+
+As the Analysis of Variance, the tooth growth is associated with the dose of vitamin C significantly (P < 2e-16); and the tooth growth is associated with the delivery methods,orange juice or ascorbic acid significantly(P = 0.000231). Besides, there is interaction between dose of vitamin C and delivery methods(P=0.021860). The alpha level is 0.05. 
+
+### Confidence intervals
+
+```{r }
+confint(fit)
+```
+
+### Multiple comparsions
+
+```{r}
+TukeyHSD(fit)
+```
+
+
+The Turky HSD analysis shows that there are differences bewtween Vitamin C and orange juice significantly. Orange juice delivery method has more postive effect on tooth growth; dose 2mg has most positive effect on tooth growth, then 1mg in contrast to 0.5mg.  Group VC:0.5-OJ:0.5,OJ:1-OJ:0.5,OJ:2-OJ:0.5,VC:2-OJ:0.5,OJ:1-VC:0.5,VC:1-VC:0.5,OJ:2-VC:0.5,VC:2-VC:0.5 ,VC:1-OJ:1,OJ:2-VC:1,VC:2-VC:1 have significant effect.
+
+
+### Conclusions & Assumptions
+
+As the Analysis of Variance, the tooth growth is associated with the dose of vitamin C significantly; and the tooth growth is associated with the delivery methods,orange juice or ascorbic acid significantly. Besides, there is interaction between dose of vitamin C and delivery methods(P=0.021860).
+
+**Assumtions**: The alpha level is 0.05; the assumpitons of analysis of variance are normal-distribution and equal variance. And the dosage and delivery methods are randomly assigned.
+
+## Appendix
+
+```{r}
+ with(ToothGrowth, plotmeans(len ~ interaction(supp, dose,sep=" "),connect=list(c(1,3,5),c(2,4,6)),col=c("red","darkgreen"),main = "Interaction Plot with 95% CIs",xlab="Treatment and Dose Combination")
+)
+```
+
+The graph includes the means, as well as error bars(95% confidence intervals) and sample sizes.
+
+

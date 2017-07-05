@@ -1,0 +1,54 @@
+
+# Titile: Assignement 1 in Coursera of Statistical Inference
+# Data Created: 16/7/22
+
+library(dplyr)
+library(ggplot2)
+
+# set random seed
+
+set.seed(170722)
+lambda =0.2
+
+simulations <- apply(matrix(rexp(1000*40,rate=lambda),1000),2,mean)
+
+
+# plot the histogram of averages
+
+hist(simulations,breaks=30,probability = T,main='Distribution of averages of samples',xlab='Row mean')
+
+# density of the averages of samples
+
+lines(density(simulations))
+
+# theoretical center of distribution
+
+abline(v=1/lambda, col="red")
+
+# theoretical density of the averages of samples
+
+num <- seq(min(simulations), max(simulations), length=100)
+density_theory <- dnorm(num, mean=1/lambda, sd=(1/lambda/sqrt(40)))
+lines(num, density_theory, pch=15, col="blue", lty=2)
+
+# add legend
+
+legend('topright', c("simulation", "theoretical"), lty=c(1,2), col=c("black", "blue"))
+#------------------------------------------------------------
+
+qqnorm(simulations); qqline(simulations)
+
+# ------------------------------ ----------------------------
+
+lambda_vals <- seq(4, 6, by=0.01)
+
+coverage <- sapply(lambda_vals, function(lamb) {
+    mu_hats <- rowMeans(matrix(rexp(sample_size*num_sim, rate=0.2),
+                               num_sim, sample_size))
+    ll <- mu_hats - qnorm(0.975) * sqrt(1/lambda**2/sample_size)
+    ul <- mu_hats + qnorm(0.975) * sqrt(1/lambda**2/sample_size)
+    mean(ll < lamb & ul > lamb)
+})
+
+library(ggplot2)
+qplot(lambda_vals, coverage) + geom_hline(yintercept=0.95)
